@@ -197,7 +197,7 @@ public class WallRunning : MonoBehaviour
 
 	private void WallJump()
 	{
-		if (lg.holding || lg.exitingLedge) return;
+		//if (lg.holding || lg.exitingLedge) return;
 
 		exitingWall = true;
 		exitWallTimer = exitWallTime;

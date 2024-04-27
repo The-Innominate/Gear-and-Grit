@@ -46,6 +46,11 @@ public class Swinging : MonoBehaviour
 		DrawRope();
 	}
 
+	private void Start()
+	{
+		lr.enabled = false;
+	}
+
 	private void StartSwing()
 	{
 		if (predictionHit.point == Vector3.zero) return;
@@ -71,6 +76,8 @@ public class Swinging : MonoBehaviour
 
 		lr.positionCount = 2;
 		currentGrapplePosition = gunTip.position;
+
+		lr.enabled = true;
 	}
 
 	public void StopSwing()
@@ -79,6 +86,8 @@ public class Swinging : MonoBehaviour
 
 		lr.positionCount = 0;
 		Destroy(joint);
+
+		lr.enabled = false;
 	}
 
 	private Vector3 currentGrapplePosition;
