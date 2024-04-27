@@ -11,16 +11,15 @@ public class CameraChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Camera"))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            switch (camMode)
+            if (camMode == 1)
             {
-                case 1:
-                    camMode = 0;
-                    break;
-                case 2:
-                    camMode += 1;
-                    break;
+                camMode = 0;
+            }
+            else 
+            {
+                camMode += 1;
             }
             StartCoroutine(CamChange());
         }
