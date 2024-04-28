@@ -30,6 +30,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class RaycastItemAligner : MonoBehaviour
 {
@@ -37,6 +38,9 @@ public class RaycastItemAligner : MonoBehaviour
     public float raycastDistance = 100f;
     public float overlapTestBoxSize = 1f;
     public LayerMask spawnedObjectLayer;
+    public bool constantSpawn = false;
+    public float spawnTime = 0f;
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +48,21 @@ public class RaycastItemAligner : MonoBehaviour
         PositionRaycast();
     }
 
-    void PositionRaycast()
+	private void Update()
+	{
+        if (constantSpawn)
+        {
+            if (timer <= 0)
+            {
+                PositionRaycast();
+                timer = spawnTime;
+            }
+
+            timer -= Time.deltaTime;
+        }
+	}
+
+	void PositionRaycast()
     {
         RaycastHit hit;
 
