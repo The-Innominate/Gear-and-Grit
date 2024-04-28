@@ -317,7 +317,7 @@ MonoBehaviour:
   explosionForce: 10
   explosionRadius: 5
   explosionUpward: 1
-  objectSize: 0
+  objectSize: 2
   explosionPrefab: {fileID: 100004, guid: b46890100828db6429ff69c322b45893, type: 3}
 --- !u!54 &-2632782986028259049
 Rigidbody:
