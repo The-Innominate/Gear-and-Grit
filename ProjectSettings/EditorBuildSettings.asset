@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Win.unity
     guid: 0936db7d6df30194288a78ac4a457ce9
+  - enabled: 1
+    path: Assets/Scenes/BetaGameIteration1.unity
+    guid: 3308ae6fe4474ff4fb88260132c0661c
   m_configObjects: {}
