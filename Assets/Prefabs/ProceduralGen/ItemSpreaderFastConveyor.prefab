@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4351462688347218066}
   - component: {fileID: 7535037678516157486}
   m_Layer: 0
-  m_Name: ItemSpreader
+  m_Name: ItemSpreaderFastConveyor
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fd4f21b2a464247ae94c5fe87d170d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToSpread: {fileID: 1765934973920727410, guid: e72af6d5aae43794eadd95a3e8c008de, type: 3}
+  itemToSpread: {fileID: 1765934973920727410, guid: 46c3945f8b88e284ebae4c2d4d3e533f, type: 3}
   numItemsToSpawn: 1
   itemXSpread: 2
   itemYSpread: 0
