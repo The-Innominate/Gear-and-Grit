@@ -371,7 +371,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1738,7 +1738,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   lr: {fileID: 1508283906}
-  pause: {fileID: 1749173775}
   maxGrappleDistance: 25
   grappleDelayTime: 0.25
   overshootYAxis: 2
@@ -2062,7 +2061,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3633,7 +3632,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1343870542}
-  isPaused: 0
 --- !u!114 &1749173776
 MonoBehaviour:
   m_ObjectHideFlags: 0
