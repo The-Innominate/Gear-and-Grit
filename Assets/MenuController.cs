@@ -14,10 +14,6 @@ public class MenuController : MonoBehaviour
     }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.P)) 
-        //{
-        //    ToggleOptionsMenu();
-        //}
     }
 
 
@@ -32,6 +28,10 @@ public class MenuController : MonoBehaviour
         if (mainMenu.active) mainMenu.SetActive(false);
     }
     public void LoadGameScene() 
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+    public void LoadGameOverScene()
     {
         SceneManager.LoadScene("SampleScene");
     }
