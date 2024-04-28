@@ -14,10 +14,6 @@ public class MenuController : MonoBehaviour
     }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.P)) 
-        //{
-        //    ToggleOptionsMenu();
-        //}
     }
 
 
@@ -34,6 +30,10 @@ public class MenuController : MonoBehaviour
     public void LoadGameScene() 
     {
         SceneManager.LoadScene("Blob 2");
+    }
+    public void LoadGameOverScene()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
     public void QuitGame() 
     {
