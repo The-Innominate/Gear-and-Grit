@@ -29,7 +29,7 @@ public class MenuController : MonoBehaviour
     }
     public void LoadGameScene() 
     {
-        SceneManager.LoadScene("Blob 2");
+        SceneManager.LoadScene("BetaGameIteration1");
     }
     public void LoadGameOverScene()
     {
