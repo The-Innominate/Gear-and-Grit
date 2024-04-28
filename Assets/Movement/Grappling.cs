@@ -26,7 +26,12 @@ public class Grappling : MonoBehaviour
     [Header("Input")]
     public KeyCode grapplingKey = KeyCode.Mouse1;
 
-    private bool grappling;
+	[Header("Prediction")]
+	public RaycastHit predictionHit;
+	public float predictionSphereCastRadius;
+	public Transform predictionPoint;
+
+	private bool grappling;
 
 	private void Start()
 	{
@@ -42,6 +47,8 @@ public class Grappling : MonoBehaviour
         {
             grapplingCdTimer -= Time.deltaTime;
         }
+
+        CheckForGrapplePoints();
 	}
 
 	private void LateUpdate()
@@ -106,4 +113,40 @@ public class Grappling : MonoBehaviour
 
         lr.enabled = false;
     }
+
+	private void CheckForGrapplePoints()
+	{
+		RaycastHit sphereCastHit;
+		Physics.SphereCast(cam.position, predictionSphereCastRadius, cam.forward, out sphereCastHit, maxGrappleDistance, isGrappleable);
+
+		RaycastHit raycastHit;
+		Physics.Raycast(cam.position, cam.forward, out raycastHit, maxGrappleDistance, isGrappleable);
+
+		Vector3 realHitPoint;
+
+		if (raycastHit.point != Vector3.zero)
+		{
+			realHitPoint = raycastHit.point;
+		}
+		else if (sphereCastHit.point != Vector3.zero)
+		{
+			realHitPoint = sphereCastHit.point;
+		}
+		else
+		{
+			realHitPoint = Vector3.zero;
+		}
+
+		if (realHitPoint != Vector3.zero)
+		{
+			predictionPoint.gameObject.SetActive(true);
+			predictionPoint.position = realHitPoint;
+		}
+		else
+		{
+			predictionPoint.gameObject.SetActive(false);
+		}
+
+		predictionHit = raycastHit.point == Vector3.zero ? sphereCastHit : raycastHit;
+	}
 }

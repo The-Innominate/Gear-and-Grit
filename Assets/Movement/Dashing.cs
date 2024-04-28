@@ -17,7 +17,10 @@ public class Dashing : MonoBehaviour
 	public float maxDashYSpeed;
 
 	[Header("CameraEffects")]
-	public PlayerCam cam;
+	private PlayerCam cam;
+	public CameraChange currentCam;
+	public PlayerCam thirdPersonCam;
+	public PlayerCam firstPersonCam;
 	public float dashFOV;
 
 	[Header("Settings")]
@@ -47,6 +50,13 @@ public class Dashing : MonoBehaviour
 		if(dashCdTimer > 0)
 		{
 			dashCdTimer -= Time.deltaTime;
+		}
+		if(currentCam.camMode == 0)
+		{
+			cam = thirdPersonCam;
+		} else
+		{
+			cam = firstPersonCam;
 		}
 	}
 

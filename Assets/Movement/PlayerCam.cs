@@ -18,6 +18,8 @@ public class PlayerCam : MonoBehaviour
 	{
 		Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+		DoFov(65f);
 	}
 
 	private void Update()
@@ -30,7 +32,6 @@ public class PlayerCam : MonoBehaviour
 
 		xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-
 		camHolder.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 		orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 	}
@@ -40,8 +41,8 @@ public class PlayerCam : MonoBehaviour
 		GetComponent<Camera>().DOFieldOfView(endValue, 0.25f);
 	}
 
-	public void DoTilt(float zTilt)
+	public void DoTilt(float xTilt, float zTilt)
 	{
-		transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
+		transform.DOLocalRotate(new Vector3(xTilt, 0, zTilt), 0.25f);
 	}
 }

@@ -55,7 +55,10 @@ public class PlayerMovement : MonoBehaviour
 	private bool exitingSlope;
 
 	[Header("CameraEffects")]
-	public PlayerCam cam;
+	private PlayerCam cam;
+	public CameraChange currentCamera;
+	public PlayerCam thirdPersonCam;
+	public PlayerCam firstPersonCam;
 	public float grappleFOV = 75f;
 
 	[Header("References")]
@@ -65,6 +68,9 @@ public class PlayerMovement : MonoBehaviour
 
 	float horizontalInput;
 	float verticalInput;
+
+	public Animator animator;
+	public Transform modelTransform;
 
 	Vector3 moveDirection;
 
@@ -129,6 +135,24 @@ public class PlayerMovement : MonoBehaviour
 		{
 			rb.drag = 0;
 		}
+
+		if(currentCamera.camMode == 0)
+		{
+			cam = thirdPersonCam;
+		} else
+		{
+			cam = firstPersonCam;
+		}
+
+		if (animator.isActiveAndEnabled)
+		{
+			animator.SetFloat("YVelocity", rb.velocity.y);
+			animator.SetBool("onGround", onGround);
+			animator.SetBool("Sliding", sliding);
+			animator.SetBool("Swinging", swinging);
+		}
+
+		modelTransform.rotation = orientation.rotation;
 	}
 
 	private void MyInput()
