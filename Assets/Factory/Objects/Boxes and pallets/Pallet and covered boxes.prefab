@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3373250}
   - component: {fileID: 2341586}
   - component: {fileID: 6458060}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Covered_boxes2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 6508546}
   - component: {fileID: -631178953297827884}
   - component: {fileID: -1298726129673159444}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pallet and covered boxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
