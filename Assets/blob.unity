@@ -170,9 +170,6 @@ MonoBehaviour:
   thirdCam: {fileID: 1726111223}
   firstCam: {fileID: 1548825912}
   camMode: 0
-  playerModel: {fileID: 2051151358}
-  thirdPlayerCam: {fileID: 1726111227}
-  firstPlayerCam: {fileID: 1548825916}
 --- !u!1001 &130767049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27807faf65db66341bbc2be51d6fedd4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.901
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27807faf65db66341bbc2be51d6fedd4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -366,7 +363,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a60a411e3b4b6b043b663b67513b9ba8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -572,8 +569,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851696553}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.004587151, y: -0.018114269, z: 0.0017917929, w: -0.9998238}
+  m_LocalPosition: {x: -0.00028231132, y: 1.743308, z: 0.116746426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -800,37 +797,6 @@ Transform:
   - {fileID: 372566156}
   m_Father: {fileID: 1209586444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1163514560
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1163514561}
-  m_Layer: 0
-  m_Name: GameObject (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1163514561
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1163514560}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.004587151, y: -0.018114269, z: 0.0017917929, w: -0.9998238}
-  m_LocalPosition: {x: -0.00028231132, y: 1.743308, z: 0.116746426}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209586434
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +841,7 @@ MonoBehaviour:
   moveToLedgeSpeed: 0
   maxLedgeGrabDistance: 0
   minTimeOnLedge: 0
+  timeOnLedge: 0
   holding: 0
   jumpKey: 32
   ledgeJumpForwardForce: 0
@@ -882,10 +849,12 @@ MonoBehaviour:
   ledgeDetectionLength: 0
   ledgeSphereCastRadius: 0
   isLedge:
-    serializedVersion: 2
     m_Bits: 0
+  lastLedge: {fileID: 0}
+  currentLedge: {fileID: 0}
   exitingLedge: 0
   exitLedgeTime: 0
+  exitLedgeTimer: 0
 --- !u!114 &1209586436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,22 +869,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 0}
   rb: {fileID: 0}
+  lg: {fileID: 0}
   pm: {fileID: 0}
   isWall:
-    serializedVersion: 2
     m_Bits: 0
   climbSpeed: 0
   maxClimbTime: 0
+  climbTimer: 0
+  climbing: 0
   climbJumpUpForce: 0
   climbJumpBackForce: 0
   jumpKey: 32
   climbJumps: 0
+  climbJumpsLeft: 0
   detectionLength: 0
   sphereCastRadius: 0
   maxWallLookAngle: 0
+  wallLookAngle: 0
+  wallFront: 0
+  lastWall: {fileID: 0}
+  lastWallNormal: {x: 0, y: 0, z: 0}
   minWallNormalAngleChange: 0
   exitingWall: 0
   exitWallTime: 0
+  exitWallTimer: 0
 --- !u!114 &1209586437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,9 +910,11 @@ MonoBehaviour:
   cam: {fileID: 851696555}
   player: {fileID: 1209586444}
   isGrappleable:
-    serializedVersion: 2
     m_Bits: 192
   pm: {fileID: 1209586442}
+  maxSwingDistance: 25
+  swingPoint: {x: 0, y: 0, z: 0}
+  joint: {fileID: 0}
   orientation: {fileID: 780972901}
   rb: {fileID: 1209586443}
   horizontalThrustForce: 2000
@@ -944,6 +923,7 @@ MonoBehaviour:
   predictionSphereCastRadius: 3
   predictionPoint: {fileID: 1926772392}
   swingKey: 323
+  currentGrapplePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1209586438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,19 +936,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e692d2c6947e624a93a5da74e0f3fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pm: {fileID: 0}
   cam: {fileID: 851696555}
   gunTip: {fileID: 606812569}
   isGrappleable:
-    serializedVersion: 2
     m_Bits: 192
   lr: {fileID: 1508283906}
   maxGrappleDistance: 25
   grappleDelayTime: 0.25
   overshootYAxis: 2
+  grapplePoint: {x: 0, y: 0, z: 0}
   grapplingCd: 1
+  grapplingCdTimer: 0
   grapplingKey: 324
   predictionSphereCastRadius: 3
   predictionPoint: {fileID: 1080224859}
+  grappling: 0
 --- !u!114 &1209586439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,10 +966,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 780972901}
   playerCam: {fileID: 1548825913}
+  rb: {fileID: 0}
+  pm: {fileID: 0}
   dashForce: 20
   dashUpwardForce: 0
   dashDuration: 0.25
   maxDashYSpeed: 14
+  cam: {fileID: 0}
   currentCam: {fileID: 55995062}
   thirdPersonCam: {fileID: 1726111227}
   firstPersonCam: {fileID: 1548825916}
@@ -996,7 +982,9 @@ MonoBehaviour:
   disableGravity: 1
   resetVel: 1
   dashCd: 1.5
+  dashCdTimer: 0
   dashKey: 101
+  delayedForceToApply: {x: 0, y: 0, z: 0}
 --- !u!114 &1209586440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,28 +998,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWall:
-    serializedVersion: 2
     m_Bits: 192
   isGround:
-    serializedVersion: 2
     m_Bits: 64
   wallRunForce: 200
   wallJumpUpForce: 7
   wallJumpSideForce: 12
   wallClimbSpeed: 7
   maxWallRunTime: 100
+  wallRunTimer: 0
   wallJumpKey: 32
   upwardsRunKey: 304
   downwardsRunKey: 306
+  upwardsRunning: 0
+  downwardsRunning: 0
+  horizontalInput: 0
+  verticalInput: 0
   WallCheckDistance: 0.7
   minJumpHeight: 2
+  wallLeft: 0
+  wallRight: 0
+  exitingWall: 0
   exitWallTime: 0.2
+  exitWallTimer: 0
   useGravity: 0
   gravityCounterForce: 7
   orientation: {fileID: 780972901}
   currentCamera: {fileID: 55995062}
+  cam: {fileID: 0}
   thirdPersonCam: {fileID: 1726111227}
   firstPersonCam: {fileID: 1548825916}
+  pm: {fileID: 0}
+  lg: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!114 &1209586441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,10 +1045,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 780972901}
   playerObj: {fileID: 1103248595}
+  modelTransform: {fileID: 372566156}
+  rb: {fileID: 0}
+  pm: {fileID: 0}
   maxSlideTime: 0.75
   slideForce: 200
+  slideTimer: 0
   slideYScale: 0.5
+  startYScale: 0
   slideKey: 306
+  horizontalInput: 0
+  verticalInput: 0
 --- !u!114 &1209586442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,6 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afff9bc6530d06e41811b3e45dd1bb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0
   walkSpeed: 7
   sprintSpeed: 10
   slideSpeed: 30
@@ -1071,29 +1078,42 @@ MonoBehaviour:
   swingSpeed: 14
   dashSpeedChangeFactor: 50
   maxYSpeed: 0
+  desiredMoveSpeed: 0
+  lastDisiredMoveSpeed: 0
   speedIncreaseMultiplier: 1.5
   slopeIncreaseMultiplier: 2.5
   groundDrag: 4
+  currentPostion: {x: 0, y: 0, z: 0}
+  previousPostion: {x: 0, y: 0, z: 0}
   jumpForce: 7
   jumpCooldown: 0.25
   airMultiplier: 0.4
+  canJump: 1
   crouchSpeed: 4
   crouchYScale: 0.5
+  startYScale: 0
   jumpKey: 32
   sprintKey: 304
   crouchKey: 99
   playerHeight: 2
   isGround:
-    serializedVersion: 2
     m_Bits: 64
   onGround: 0
   maxSlopeAngle: 40
+  exitingSlope: 0
+  cam: {fileID: 0}
   currentCamera: {fileID: 55995062}
   thirdPersonCam: {fileID: 1726111227}
   firstPersonCam: {fileID: 1548825916}
   grappleFOV: 75
   climbingScript: {fileID: 1209586436}
   orientation: {fileID: 780972901}
+  horizontalInput: 0
+  verticalInput: 0
+  animator: {fileID: 2051151359}
+  modelTransform: {fileID: 372566156}
+  moveDirection: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
   sliding: 0
   wallRunning: 0
   climbing: 0
@@ -1103,6 +1123,10 @@ MonoBehaviour:
   activeGrapple: 0
   restricted: 0
   state: 0
+  keepMomentum: 0
+  lastState: 0
+  enableMovemmentOnNextTouch: 0
+  velocityToSet: {x: 0, y: 0, z: 0}
 --- !u!54 &1209586443
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1446,7 +1470,7 @@ Transform:
   m_GameObject: {fileID: 1476913023}
   serializedVersion: 2
   m_LocalRotation: {x: -0.004587151, y: 0.018114269, z: -0.0017917929, w: -0.9998238}
-  m_LocalPosition: {x: -0.51, y: -0.213, z: 0.52700007}
+  m_LocalPosition: {x: 0.009, y: 0.192, z: -0.279}
   m_LocalScale: {x: 0.18247002, y: 0.14604998, z: 0.45702}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1494,7 +1518,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 99a9689701ec0d246893afadc87902ac, type: 2}
+  - {fileID: 2100000, guid: a60a411e3b4b6b043b663b67513b9ba8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1538,21 +1562,21 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0.44705883, g: 0.40392157, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0.44705883, g: 0.40392157, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0.44705883, g: 0.40392157, b: 0, a: 0}
+      key6: {r: 1, g: 0.9647059, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
+      ctime1: 2827
+      ctime2: 5783
+      ctime3: 9381
+      ctime4: 12336
+      ctime5: 15549
+      ctime6: 65535
       ctime7: 0
       atime0: 0
       atime1: 65535
@@ -1563,8 +1587,8 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
-      m_NumColorKeys: 2
+      m_ColorSpace: 0
+      m_NumColorKeys: 7
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
@@ -1682,7 +1706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1548825913
 Transform:
   m_ObjectHideFlags: 0
@@ -1705,7 +1729,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548825912}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1548825915
 Camera:
   m_ObjectHideFlags: 0
@@ -1773,6 +1797,8 @@ MonoBehaviour:
   sensY: 1000
   orientation: {fileID: 780972901}
   camHolder: {fileID: 851696555}
+  xRotation: 0
+  yRotation: 0
 --- !u!1 &1655521466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2092,37 +2118,8 @@ MonoBehaviour:
   sensY: 1000
   orientation: {fileID: 780972901}
   camHolder: {fileID: 851696555}
---- !u!1 &1896589426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1896589427}
-  m_Layer: 0
-  m_Name: GameObject (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1896589427
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896589426}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.19991346, y: -1e-45, z: 0, w: 0.9798136}
-  m_LocalPosition: {x: 0.087, y: 3.533, z: -4.505}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  xRotation: 0
+  yRotation: 0
 --- !u!1 &1926772388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,9 +2225,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2051151358 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 27807faf65db66341bbc2be51d6fedd4, type: 3}
+--- !u!95 &2051151359 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 27807faf65db66341bbc2be51d6fedd4, type: 3}
   m_PrefabInstance: {fileID: 130767049}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2143809209
@@ -2278,5 +2275,3 @@ SceneRoots:
   - {fileID: 1209586444}
   - {fileID: 1926772392}
   - {fileID: 1080224859}
-  - {fileID: 1163514561}
-  - {fileID: 1896589427}
