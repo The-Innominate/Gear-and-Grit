@@ -78,7 +78,8 @@ public class WallRunning : MonoBehaviour
 			{
 				pm.animator.SetBool("onRightWall", wallLeft);
 				pm.animator.SetBool("onLeftWall", wallRight);
-			} else
+			}
+			else
 			{
 				pm.animator.SetBool("onRightWall", false);
 				pm.animator.SetBool("onLeftWall", false);
@@ -164,6 +165,10 @@ public class WallRunning : MonoBehaviour
 
 	private void StartWallRun()
 	{
+		//if (pm.activeGrapple)
+		//{
+		//	return;
+		//}
 		pm.wallRunning = true;
 
 		wallRunTimer = maxWallRunTime;
@@ -186,6 +191,11 @@ public class WallRunning : MonoBehaviour
 
 	private void WallRunningMovement()
 	{
+		if (pm.activeGrapple)
+		{
+			rb.useGravity = true;
+			return;
+		}
 		rb.useGravity = useGravity;
 
 		Vector3 wallNormal = wallRight ? rightWallhit.normal : leftWallhit.normal;
