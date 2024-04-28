@@ -8,18 +8,16 @@ public class MenuController : MonoBehaviour
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject optionsMenu;
 
-    private bool titleScreen = true;
-
     private void Start()
     {
         optionsMenu.SetActive(false);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !titleScreen) 
-        {
-            ToggleOptionsMenu();
-        }
+        //if (Input.GetKeyDown(KeyCode.P)) 
+        //{
+        //    ToggleOptionsMenu();
+        //}
     }
 
 
