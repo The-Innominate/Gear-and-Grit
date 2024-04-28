@@ -35,7 +35,7 @@ public class MenuController : MonoBehaviour
     }
     public void LoadGameScene() 
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Blob 2");
     }
     public void QuitGame() 
     {
