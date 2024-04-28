@@ -51,7 +51,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: 5f2137b9d94d13c4bb0f0d173aaf1bcf, type: 3}
 --- !u!1 &2362067187265232863
@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 6850564712560662756}
   - component: {fileID: 8070321363787048911}
   - component: {fileID: 5790015143827972303}
+  - component: {fileID: -2632782986028259049}
   m_Layer: 0
   m_Name: ExplosionBarrel
   m_TagString: Untagged
@@ -316,4 +317,32 @@ MonoBehaviour:
   explosionForce: 10
   explosionRadius: 5
   explosionUpward: 1
+  objectSize: 0
   explosionPrefab: {fileID: 100004, guid: b46890100828db6429ff69c322b45893, type: 3}
+--- !u!54 &-2632782986028259049
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3056532239635453173}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
