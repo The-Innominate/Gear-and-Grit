@@ -96,6 +96,7 @@ namespace nickmaltbie.ScrollingShader
             {
                 Vector3 movement = velocity * GetDirection() * Time.deltaTime;
                 other.rigidbody.MovePosition(other.transform.position + movement);
+                other.rigidbody.velocity += GetDirection();
             }
         }
 
