@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/blob 2.unity
     guid: c9d27d4cc9c09be4da22610b26cf0e38
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 0936db7d6df30194288a78ac4a457ce9
   m_configObjects: {}
