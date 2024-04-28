@@ -62,7 +62,7 @@ public class Belt : MonoBehaviour
             beltItem = null;
         }
 
-        
+        //once it reaches the end
     }
 
     private Belt FindNextBelt()
