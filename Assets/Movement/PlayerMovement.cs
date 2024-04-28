@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
 	bool keepMomentum;
 	private MovementState lastState;
 	private void stateHandler()
-	{
+	{	
 		if(dashing)
 		{
 			state = MovementState.dashing;
