@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6343602313235671012}
   - component: {fileID: 7767123691203711456}
   m_Layer: 0
-  m_Name: ItemPickerBelt
+  m_Name: ItemPickerPalletAndBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,4 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsToPickFrom:
-  - {fileID: 7227654043107835122, guid: ca478a21ce262fd49a27ebc0987b359f, type: 3}
+  - {fileID: 192820, guid: 50652fa5de6f15a4fa346a2292815aa6, type: 3}
+  - {fileID: 123682, guid: 2624760c2371db742833f9b7b7f9f8ae, type: 3}
+  - {fileID: 136564, guid: 66dac63d1aca62c4cad44b11e87bf98e, type: 3}
+  - {fileID: 142680, guid: f8548364843ba704a9714e13023ea7cc, type: 3}
+  - {fileID: 186938, guid: c7bd4555761a8aa4ba35979b5566bc0a, type: 3}
+  - {fileID: 168644, guid: 76938fc3a3cf3584cad29f234e5227ac, type: 3}
