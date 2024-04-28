@@ -11,7 +11,8 @@ public class Swinging : MonoBehaviour
 	public LayerMask isGrappleable;
 	public PlayerMovement pm;
 
-	[Header("Swinging")]
+
+    [Header("Swinging")]
 	private float maxSwingDistance = 25f;
 	private Vector3 swingPoint;
 	private SpringJoint joint;
@@ -31,14 +32,18 @@ public class Swinging : MonoBehaviour
 	[Header("Input")]
 	public KeyCode swingKey = KeyCode.Mouse0;
 
-	private void Update()
+
+    private void Update()
 	{
-		if (Input.GetKeyDown(swingKey)) StartSwing();
-		if (Input.GetKeyUp(swingKey)) StopSwing();
+		if(!PauseMenu.isPaused)
+		{
+			if (Input.GetKeyDown(swingKey)) StartSwing();
+			if (Input.GetKeyUp(swingKey)) StopSwing();
 
-		CheckForSwingPoints();
+			CheckForSwingPoints();
 
-		if (joint != null) AirMovement();
+			if (joint != null) AirMovement();
+		}
 	}
 
 	private void LateUpdate()
@@ -48,7 +53,7 @@ public class Swinging : MonoBehaviour
 
 	private void Start()
 	{
-		lr.enabled = false;
+        lr.enabled = false;
 	}
 
 	private void StartSwing()

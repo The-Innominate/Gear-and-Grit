@@ -12,6 +12,7 @@ public class Grappling : MonoBehaviour
     public LayerMask isGrappleable;
     public LineRenderer lr;
 
+
     [Header("Grappling")]
     public float maxGrappleDistance;
     public float grappleDelayTime;
@@ -26,56 +27,59 @@ public class Grappling : MonoBehaviour
     [Header("Input")]
     public KeyCode grapplingKey = KeyCode.Mouse1;
 
-	[Header("Prediction")]
-	public RaycastHit predictionHit;
-	public float predictionSphereCastRadius;
-	public Transform predictionPoint;
+    [Header("Prediction")]
+    public RaycastHit predictionHit;
+    public float predictionSphereCastRadius;
+    public Transform predictionPoint;
 
-	private bool grappling;
+    private bool grappling;
 
-	private void Start()
-	{
-		pm = GetComponent<PlayerMovement>();
+    private void Start()
+    {
+        pm = GetComponent<PlayerMovement>();
         lr.enabled = false;
-	}
+    }
 
-	private void Update()
-	{
-		if(Input.GetKeyDown(grapplingKey)) StartGrapple();
-
-        if(grapplingCdTimer > 0)
+    private void Update()
+    {
+        if (!PauseMenu.isPaused)
         {
-            grapplingCdTimer -= Time.deltaTime;
+            if (Input.GetKeyDown(grapplingKey)) StartGrapple();
+
+            if (grapplingCdTimer > 0)
+            {
+                grapplingCdTimer -= Time.deltaTime;
+            }
+
+            CheckForGrapplePoints();
         }
+    }
 
-        CheckForGrapplePoints();
-	}
-
-	private void LateUpdate()
-	{
-		if(grappling)
+    private void LateUpdate()
+    {
+        if (grappling)
         {
             lr.SetPosition(0, gunTip.position);
         }
-	}
+    }
 
-	private void StartGrapple()
+    private void StartGrapple()
     {
         if (grapplingCdTimer > 0) return;
 
-		if (GetComponent<Swinging>() != null) GetComponent<Swinging>().StopSwing();
+        if (GetComponent<Swinging>() != null) GetComponent<Swinging>().StopSwing();
 
         grappling = true;
 
         pm.freeze = true;
 
         RaycastHit hit;
-        if(Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, isGrappleable))
+        if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, isGrappleable))
         {
             grapplePoint = hit.point;
 
             Invoke(nameof(ExecuteGrapple), grappleDelayTime);
-        } 
+        }
         else
         {
             grapplePoint = cam.position + cam.forward * maxGrappleDistance;
@@ -114,39 +118,39 @@ public class Grappling : MonoBehaviour
         lr.enabled = false;
     }
 
-	private void CheckForGrapplePoints()
-	{
-		RaycastHit sphereCastHit;
-		Physics.SphereCast(cam.position, predictionSphereCastRadius, cam.forward, out sphereCastHit, maxGrappleDistance, isGrappleable);
+    private void CheckForGrapplePoints()
+    {
+        RaycastHit sphereCastHit;
+        Physics.SphereCast(cam.position, predictionSphereCastRadius, cam.forward, out sphereCastHit, maxGrappleDistance, isGrappleable);
 
-		RaycastHit raycastHit;
-		Physics.Raycast(cam.position, cam.forward, out raycastHit, maxGrappleDistance, isGrappleable);
+        RaycastHit raycastHit;
+        Physics.Raycast(cam.position, cam.forward, out raycastHit, maxGrappleDistance, isGrappleable);
 
-		Vector3 realHitPoint;
+        Vector3 realHitPoint;
 
-		if (raycastHit.point != Vector3.zero)
-		{
-			realHitPoint = raycastHit.point;
-		}
-		else if (sphereCastHit.point != Vector3.zero)
-		{
-			realHitPoint = sphereCastHit.point;
-		}
-		else
-		{
-			realHitPoint = Vector3.zero;
-		}
+        if (raycastHit.point != Vector3.zero)
+        {
+            realHitPoint = raycastHit.point;
+        }
+        else if (sphereCastHit.point != Vector3.zero)
+        {
+            realHitPoint = sphereCastHit.point;
+        }
+        else
+        {
+            realHitPoint = Vector3.zero;
+        }
 
-		if (realHitPoint != Vector3.zero)
-		{
-			predictionPoint.gameObject.SetActive(true);
-			predictionPoint.position = realHitPoint;
-		}
-		else
-		{
-			predictionPoint.gameObject.SetActive(false);
-		}
+        if (realHitPoint != Vector3.zero)
+        {
+            predictionPoint.gameObject.SetActive(true);
+            predictionPoint.position = realHitPoint;
+        }
+        else
+        {
+            predictionPoint.gameObject.SetActive(false);
+        }
 
-		predictionHit = raycastHit.point == Vector3.zero ? sphereCastHit : raycastHit;
-	}
+        predictionHit = raycastHit.point == Vector3.zero ? sphereCastHit : raycastHit;
+    }
 }
