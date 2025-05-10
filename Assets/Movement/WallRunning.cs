@@ -51,6 +51,20 @@ public class WallRunning : MonoBehaviour
 	private LedgeGrabbing lg;
 	private Rigidbody rb;
 
+	private static WallRunning instance;
+
+	public static WallRunning Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new WallRunning();
+			}
+			return instance;
+		}
+	}
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();

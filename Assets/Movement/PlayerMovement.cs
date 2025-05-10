@@ -104,6 +104,20 @@ public class PlayerMovement : MonoBehaviour
 		air
 	}
 
+	private static PlayerMovement instance;
+
+	public static PlayerMovement Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new PlayerMovement();
+			}
+			return instance;
+		}
+	}
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();

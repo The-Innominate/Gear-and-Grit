@@ -40,6 +40,20 @@ public class LedgeGrabbing : MonoBehaviour
 	public float exitLedgeTime;
 	private float exitLedgeTimer;
 
+	private static LedgeGrabbing instance;
+
+	public static LedgeGrabbing Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new LedgeGrabbing();
+			}
+			return instance;
+		}
+	}
+
 	private void Update()
 	{
 		LedgeDetection();

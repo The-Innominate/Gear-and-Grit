@@ -44,6 +44,20 @@ public class Climbing : MonoBehaviour
 	public float exitWallTime;
 	private float exitWallTimer;
 
+	private static Climbing instance;
+
+	public static Climbing Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Climbing();
+			}
+			return instance;
+		}
+	}
+
 	private void Start()
 	{
 		lg = GetComponent<LedgeGrabbing>();	

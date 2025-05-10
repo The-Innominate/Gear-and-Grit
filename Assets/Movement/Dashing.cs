@@ -36,6 +36,20 @@ public class Dashing : MonoBehaviour
 	[Header("Input")]
 	public KeyCode dashKey = KeyCode.E;
 
+	private static Dashing instance;
+
+	public static Dashing Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Dashing();
+			}
+			return instance;
+		}
+	}
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();

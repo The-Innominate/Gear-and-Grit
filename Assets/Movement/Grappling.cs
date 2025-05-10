@@ -34,7 +34,21 @@ public class Grappling : MonoBehaviour
 
     private bool grappling;
 
-    private void Start()
+	private static Grappling instance;
+
+	public static Grappling Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Grappling();
+			}
+			return instance;
+		}
+	}
+
+	private void Start()
     {
         pm = GetComponent<PlayerMovement>();
         lr.enabled = false;

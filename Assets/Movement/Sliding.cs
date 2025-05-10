@@ -24,6 +24,19 @@ public class Sliding : MonoBehaviour
 	private float horizontalInput;
 	private float verticalInput;
 
+	private static Sliding instance;
+
+	public static Sliding Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Sliding();
+			}
+			return instance;
+		}
+	}
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();

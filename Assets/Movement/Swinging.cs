@@ -29,8 +29,22 @@ public class Swinging : MonoBehaviour
 	[Header("Input")]
 	public KeyCode swingKey = KeyCode.Mouse0;
 
+	private static Swinging instance;
 
-    private void Update()
+	public static Swinging Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Swinging();
+			}
+			return instance;
+		}
+	}
+
+
+	private void Update()
 	{
 		if(!PauseMenu.isPaused)
 		{
