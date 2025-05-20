@@ -1,7 +1,19 @@
 using UnityEngine;
 
-public class Swinging : MonoBehaviour
+public class Swinging : MonoBehaviour, IObserver
 {
+	[Header("Observer")]
+	public Win[] Observees;
+
+	public void UpdateWhenNotified()
+	{
+		foreach (var observee in Observees)
+		{
+			observee.Unsubscribe(this);
+		}
+		this.enabled = false;
+	}
+
 	[Header("References")]
 	public LineRenderer lr;
 	public Transform gunTip, cam, player;
@@ -65,6 +77,11 @@ public class Swinging : MonoBehaviour
 	private void Start()
 	{
         lr.enabled = false;
+
+		foreach (var observee in Observees)
+		{
+			observee.Subscribe(this);
+		}
 	}
 
 	private void StartSwing()

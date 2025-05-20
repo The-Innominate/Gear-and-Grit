@@ -5337,6 +5337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29231b7d52cd2847bd4b0b29d9ba0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 0}
   pm: {fileID: 0}
   orientation: {fileID: 0}
   cam: {fileID: 0}
@@ -5367,6 +5368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438b3101b5fa0054eaf9671f37c9a28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 0}
   orientation: {fileID: 0}
   rb: {fileID: 0}
   pm: {fileID: 0}
@@ -5397,6 +5399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7d913808d0c144ca21b035ba197ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 0}
   lr: {fileID: 1476913024}
   gunTip: {fileID: 2143809210}
   cam: {fileID: 851696555}
@@ -5425,6 +5428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e692d2c6947e624a93a5da74e0f3fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 0}
   cam: {fileID: 851696555}
   gunTip: {fileID: 606812569}
   isGrappleable:
@@ -5450,6 +5454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6ed9c562fa1d64da0e9902c90154d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 0}
   orientation: {fileID: 780972901}
   playerCam: {fileID: 1548825913}
   dashForce: 20
@@ -5478,6 +5483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38bf288bf3e61ca44885691178f94c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 0}
   isWall:
     serializedVersion: 2
     m_Bits: 192
@@ -5513,6 +5519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69261f2fc6edfe84a9403a6052eae9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 0}
   orientation: {fileID: 780972901}
   playerObj: {fileID: 1103248595}
   modelTransform: {fileID: 372566156}
@@ -5532,6 +5539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afff9bc6530d06e41811b3e45dd1bb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  win: {fileID: 1089128821}
   walkSpeed: 7
   sprintSpeed: 10
   slideSpeed: 30

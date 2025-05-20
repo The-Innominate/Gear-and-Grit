@@ -3,8 +3,20 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class WallRunning : MonoBehaviour
+public class WallRunning : MonoBehaviour, IObserver
 {
+	[Header("Observer")]
+	public Win[] Observees;
+
+	public void UpdateWhenNotified()
+	{
+		foreach (var observee in Observees)
+		{
+			observee.Unsubscribe(this);
+		}
+		this.enabled = false;
+	}
+
 	[Header("WallRunning")]
 	public LayerMask isWall;
 	public LayerMask isGround;
@@ -70,6 +82,11 @@ public class WallRunning : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		pm = GetComponent<PlayerMovement>();
 		lg = GetComponent<LedgeGrabbing>();
+
+		foreach (var observee in Observees)
+		{
+			observee.Subscribe(this);
+		}
 	}
 
 	private void Update()

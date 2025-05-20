@@ -3,8 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IObserver
 {
+	[Header("Observer")]
+	public Win[] Observees;
+
+	public void UpdateWhenNotified()
+	{
+		foreach(var observee in Observees)
+		{
+			observee.Unsubscribe(this);
+		}
+		this.enabled = false;
+	}
+
 	[Header("Movement")]
 	private float moveSpeed;
 	public float walkSpeed;
@@ -126,6 +138,11 @@ public class PlayerMovement : MonoBehaviour
 		canJump = true;
 
 		startYScale = transform.localScale.y;
+
+		foreach (var observee in Observees)
+		{
+			observee.Subscribe(this);
+		}
 	}
 
 	private void FixedUpdate()

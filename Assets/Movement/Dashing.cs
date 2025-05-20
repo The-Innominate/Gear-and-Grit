@@ -2,8 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dashing : MonoBehaviour
+public class Dashing : MonoBehaviour, IObserver
 {
+	[Header("Observer")]
+	public Win[] Observees;
+
+	public void UpdateWhenNotified()
+	{
+		foreach (var observee in Observees)
+		{
+			observee.Unsubscribe(this);
+		}
+		this.enabled = false;
+	}
+
 	[Header("References")]
 	public Transform orientation;
 	public Transform playerCam;
@@ -54,7 +66,13 @@ public class Dashing : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		pm = GetComponent<PlayerMovement>();
+
+		foreach (var observee in Observees)
+		{
+			observee.Subscribe(this);
+		}
 	}
+
 	private void Update()
 	{
 		if (Input.GetKeyDown(dashKey))

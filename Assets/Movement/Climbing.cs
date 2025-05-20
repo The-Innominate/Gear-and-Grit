@@ -2,8 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Climbing : MonoBehaviour
+public class Climbing : MonoBehaviour, IObserver
 {
+	[Header("Observer")]
+	public Win[] Observees;
+
+	public void UpdateWhenNotified()
+	{
+		foreach (var observee in Observees)
+		{
+			observee.Unsubscribe(this);
+		}
+		this.enabled = false;
+	}
+
 	[Header("References")]
 	public Transform orientation;
 	public Rigidbody rb;
@@ -60,7 +72,12 @@ public class Climbing : MonoBehaviour
 
 	private void Start()
 	{
-		lg = GetComponent<LedgeGrabbing>();	
+		lg = GetComponent<LedgeGrabbing>();
+
+		foreach (var observee in Observees)
+		{
+			observee.Subscribe(this);
+		}
 	}
 
 	private void Update()

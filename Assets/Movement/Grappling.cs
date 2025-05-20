@@ -3,9 +3,21 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Grappling : MonoBehaviour
+public class Grappling : MonoBehaviour, IObserver
 {
-    [Header("References")]
+	[Header("Observer")]
+	public Win[] Observees;
+
+	public void UpdateWhenNotified()
+	{
+		foreach (var observee in Observees)
+		{
+			observee.Unsubscribe(this);
+		}
+		this.enabled = false;
+	}
+
+	[Header("References")]
     private PlayerMovement pm;
     public Transform cam;
     public Transform gunTip;
@@ -52,7 +64,12 @@ public class Grappling : MonoBehaviour
     {
         pm = GetComponent<PlayerMovement>();
         lr.enabled = false;
-    }
+
+		foreach (var observee in Observees)
+		{
+			observee.Subscribe(this);
+		}
+	}
 
     private void Update()
     {
