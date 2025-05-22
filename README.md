@@ -71,7 +71,6 @@ Use your tools, quick reflexes, and spatial awareness to scale a procedurally ge
 ## 📌 Notes
 
 This project is currently in development. Expect frequent updates and improvements.
-
 ---
 
 ## 📫 Contact
