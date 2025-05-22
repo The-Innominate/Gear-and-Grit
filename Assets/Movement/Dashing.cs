@@ -2,20 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dashing : MonoBehaviour, IObserver
+public class Dashing : ObserverFlyweight
 {
-	[Header("Observer")]
-	public Win[] Observees;
-
-	public void UpdateWhenNotified()
-	{
-		foreach (var observee in Observees)
-		{
-			observee.Unsubscribe(this);
-		}
-		this.enabled = false;
-	}
-
 	[Header("References")]
 	public Transform orientation;
 	public Transform playerCam;
@@ -62,15 +50,12 @@ public class Dashing : MonoBehaviour, IObserver
 		}
 	}
 
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
+
 		rb = GetComponent<Rigidbody>();
 		pm = GetComponent<PlayerMovement>();
-
-		foreach (var observee in Observees)
-		{
-			observee.Subscribe(this);
-		}
 	}
 
 	private void Update()

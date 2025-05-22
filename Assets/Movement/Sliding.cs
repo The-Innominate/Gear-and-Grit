@@ -2,19 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sliding : MonoBehaviour, IObserver
+public class Sliding : ObserverFlyweight
 {
-	[Header("Observer")]
-	public Win[] Observees;
-	public void UpdateWhenNotified()
-	{
-		foreach (var observee in Observees)
-		{
-			observee.Unsubscribe(this);
-		}
-		this.enabled = false;
-	}
-
 	[Header("References")]
 	public Transform orientation;
 	public Transform playerObj;
@@ -48,17 +37,14 @@ public class Sliding : MonoBehaviour, IObserver
 			return instance;
 		}
 	}
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
+
 		rb = GetComponent<Rigidbody>();
 		pm = GetComponent<PlayerMovement>();
 
 		startYScale = playerObj.localScale.y;
-
-		foreach (var observee in Observees)
-		{
-			observee.Subscribe(this);
-		}
 	}
 
 	private void Update()

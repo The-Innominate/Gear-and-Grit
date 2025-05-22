@@ -3,20 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class PlayerMovement : MonoBehaviour, IObserver
+public class PlayerMovement : ObserverFlyweight
 {
-	[Header("Observer")]
-	public Win[] Observees;
-
-	public void UpdateWhenNotified()
-	{
-		foreach(var observee in Observees)
-		{
-			observee.Unsubscribe(this);
-		}
-		this.enabled = false;
-	}
-
 	[Header("Movement")]
 	private float moveSpeed;
 	public float walkSpeed;
@@ -130,19 +118,16 @@ public class PlayerMovement : MonoBehaviour, IObserver
 		}
 	}
 
-	private void Start()
+	protected override void Start()
 	{
+		base.Start();
+
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
 
 		canJump = true;
 
 		startYScale = transform.localScale.y;
-
-		foreach (var observee in Observees)
-		{
-			observee.Subscribe(this);
-		}
 	}
 
 	private void FixedUpdate()

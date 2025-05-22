@@ -3,20 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
-public class LedgeGrabbing : MonoBehaviour, IObserver
+public class LedgeGrabbing : ObserverFlyweight
 {
-	[Header("Observer")]
-	public Win[] Observees;
-
-	public void UpdateWhenNotified()
-	{
-		foreach (var observee in Observees)
-		{
-			observee.Unsubscribe(this);
-		}
-		this.enabled = false;
-	}
-
 	[Header("References")]
 	public PlayerMovement pm;
 	public Transform orientation;
@@ -63,14 +51,6 @@ public class LedgeGrabbing : MonoBehaviour, IObserver
 				instance = new LedgeGrabbing();
 			}
 			return instance;
-		}
-	}
-
-	private void Start()
-	{
-		foreach (var observee in Observees)
-		{
-			observee.Subscribe(this);
 		}
 	}
 

@@ -1,19 +1,7 @@
 using UnityEngine;
 
-public class Swinging : MonoBehaviour, IObserver
+public class Swinging : ObserverFlyweight
 {
-	[Header("Observer")]
-	public Win[] Observees;
-
-	public void UpdateWhenNotified()
-	{
-		foreach (var observee in Observees)
-		{
-			observee.Unsubscribe(this);
-		}
-		this.enabled = false;
-	}
-
 	[Header("References")]
 	public LineRenderer lr;
 	public Transform gunTip, cam, player;
@@ -74,14 +62,11 @@ public class Swinging : MonoBehaviour, IObserver
 		DrawRope();
 	}
 
-	private void Start()
+	protected override void Start()
 	{
-        lr.enabled = false;
+		base.Start();
 
-		foreach (var observee in Observees)
-		{
-			observee.Subscribe(this);
-		}
+		lr.enabled = false;
 	}
 
 	private void StartSwing()

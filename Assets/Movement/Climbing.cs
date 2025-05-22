@@ -2,20 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Climbing : MonoBehaviour, IObserver
+public class Climbing : ObserverFlyweight
 {
-	[Header("Observer")]
-	public Win[] Observees;
-
-	public void UpdateWhenNotified()
-	{
-		foreach (var observee in Observees)
-		{
-			observee.Unsubscribe(this);
-		}
-		this.enabled = false;
-	}
-
 	[Header("References")]
 	public Transform orientation;
 	public Rigidbody rb;
@@ -70,14 +58,11 @@ public class Climbing : MonoBehaviour, IObserver
 		}
 	}
 
-	private void Start()
+	protected override void Start()
 	{
-		lg = GetComponent<LedgeGrabbing>();
+		base.Start();
 
-		foreach (var observee in Observees)
-		{
-			observee.Subscribe(this);
-		}
+		lg = GetComponent<LedgeGrabbing>();
 	}
 
 	private void Update()

@@ -3,20 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Grappling : MonoBehaviour, IObserver
+public class Grappling : ObserverFlyweight
 {
-	[Header("Observer")]
-	public Win[] Observees;
-
-	public void UpdateWhenNotified()
-	{
-		foreach (var observee in Observees)
-		{
-			observee.Unsubscribe(this);
-		}
-		this.enabled = false;
-	}
-
 	[Header("References")]
     private PlayerMovement pm;
     public Transform cam;
@@ -60,15 +48,12 @@ public class Grappling : MonoBehaviour, IObserver
 		}
 	}
 
-	private void Start()
+	protected override void Start()
     {
-        pm = GetComponent<PlayerMovement>();
-        lr.enabled = false;
+        base.Start();
 
-		foreach (var observee in Observees)
-		{
-			observee.Subscribe(this);
-		}
+		pm = GetComponent<PlayerMovement>();
+        lr.enabled = false;
 	}
 
     private void Update()
