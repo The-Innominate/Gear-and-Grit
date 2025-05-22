@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Swinging : MonoBehaviour
+public class Swinging : ObserverFlyweight
 {
 	[Header("References")]
 	public LineRenderer lr;
@@ -29,8 +29,22 @@ public class Swinging : MonoBehaviour
 	[Header("Input")]
 	public KeyCode swingKey = KeyCode.Mouse0;
 
+	private static Swinging instance;
 
-    private void Update()
+	public static Swinging Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Swinging();
+			}
+			return instance;
+		}
+	}
+
+
+	private void Update()
 	{
 		if(!PauseMenu.isPaused)
 		{
@@ -48,9 +62,11 @@ public class Swinging : MonoBehaviour
 		DrawRope();
 	}
 
-	private void Start()
+	protected override void Start()
 	{
-        lr.enabled = false;
+		base.Start();
+
+		lr.enabled = false;
 	}
 
 	private void StartSwing()

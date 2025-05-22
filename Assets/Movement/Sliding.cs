@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sliding : MonoBehaviour
+public class Sliding : ObserverFlyweight
 {
 	[Header("References")]
 	public Transform orientation;
@@ -24,8 +24,23 @@ public class Sliding : MonoBehaviour
 	private float horizontalInput;
 	private float verticalInput;
 
-	private void Start()
+	private static Sliding instance;
+
+	public static Sliding Instance
 	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Sliding();
+			}
+			return instance;
+		}
+	}
+	protected override void Start()
+	{
+		base.Start();
+
 		rb = GetComponent<Rigidbody>();
 		pm = GetComponent<PlayerMovement>();
 

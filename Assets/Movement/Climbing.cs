@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Climbing : MonoBehaviour
+public class Climbing : ObserverFlyweight
 {
 	[Header("References")]
 	public Transform orientation;
@@ -44,9 +44,25 @@ public class Climbing : MonoBehaviour
 	public float exitWallTime;
 	private float exitWallTimer;
 
-	private void Start()
+	private static Climbing instance;
+
+	public static Climbing Instance
 	{
-		lg = GetComponent<LedgeGrabbing>();	
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Climbing();
+			}
+			return instance;
+		}
+	}
+
+	protected override void Start()
+	{
+		base.Start();
+
+		lg = GetComponent<LedgeGrabbing>();
 	}
 
 	private void Update()

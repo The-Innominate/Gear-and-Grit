@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dashing : MonoBehaviour
+public class Dashing : ObserverFlyweight
 {
 	[Header("References")]
 	public Transform orientation;
@@ -36,11 +36,28 @@ public class Dashing : MonoBehaviour
 	[Header("Input")]
 	public KeyCode dashKey = KeyCode.E;
 
-	private void Start()
+	private static Dashing instance;
+
+	public static Dashing Instance
 	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Dashing();
+			}
+			return instance;
+		}
+	}
+
+	protected override void Start()
+	{
+		base.Start();
+
 		rb = GetComponent<Rigidbody>();
 		pm = GetComponent<PlayerMovement>();
 	}
+
 	private void Update()
 	{
 		if (Input.GetKeyDown(dashKey))

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class WallRunning : MonoBehaviour
+public class WallRunning : ObserverFlyweight
 {
 	[Header("WallRunning")]
 	public LayerMask isWall;
@@ -51,7 +51,21 @@ public class WallRunning : MonoBehaviour
 	private LedgeGrabbing lg;
 	private Rigidbody rb;
 
-	private void Start()
+	private static WallRunning instance;
+
+	public static WallRunning Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new WallRunning();
+			}
+			return instance;
+		}
+	}
+
+	protected override void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 		pm = GetComponent<PlayerMovement>();

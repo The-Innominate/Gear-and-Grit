@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
-public class LedgeGrabbing : MonoBehaviour
+public class LedgeGrabbing : ObserverFlyweight
 {
 	[Header("References")]
 	public PlayerMovement pm;
@@ -39,6 +39,20 @@ public class LedgeGrabbing : MonoBehaviour
 	public bool exitingLedge;
 	public float exitLedgeTime;
 	private float exitLedgeTimer;
+
+	private static LedgeGrabbing instance;
+
+	public static LedgeGrabbing Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new LedgeGrabbing();
+			}
+			return instance;
+		}
+	}
 
 	private void Update()
 	{

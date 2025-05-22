@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : ObserverFlyweight
 {
 	[Header("Movement")]
 	private float moveSpeed;
@@ -104,8 +104,24 @@ public class PlayerMovement : MonoBehaviour
 		air
 	}
 
-	private void Start()
+	private static PlayerMovement instance;
+
+	public static PlayerMovement Instance
 	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new PlayerMovement();
+			}
+			return instance;
+		}
+	}
+
+	protected override void Start()
+	{
+		base.Start();
+
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
 

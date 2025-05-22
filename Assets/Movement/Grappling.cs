@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Grappling : MonoBehaviour
+public class Grappling : ObserverFlyweight
 {
-    [Header("References")]
+	[Header("References")]
     private PlayerMovement pm;
     public Transform cam;
     public Transform gunTip;
@@ -34,11 +34,27 @@ public class Grappling : MonoBehaviour
 
     private bool grappling;
 
-    private void Start()
+	private static Grappling instance;
+
+	public static Grappling Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = new Grappling();
+			}
+			return instance;
+		}
+	}
+
+	protected override void Start()
     {
-        pm = GetComponent<PlayerMovement>();
+        base.Start();
+
+		pm = GetComponent<PlayerMovement>();
         lr.enabled = false;
-    }
+	}
 
     private void Update()
     {
