@@ -12,27 +12,20 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
+        GameManager.Instance.SetPauseMenu(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && isPaused)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            ResumeGame();
-        }
-        else if (Input.GetKeyDown(KeyCode.P) && !isPaused)
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-        PauseGame();
-        }
+        // Pause functionality is now handled by the state system
     }
 
     public void PauseGame() 
     {
         pauseMenu.SetActive(true);
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 0f;
         isPaused = true;
     }
@@ -41,11 +34,13 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1.0f;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
     }
     public void ReturnToMain() 
     {
         Time.timeScale = 1.0f;
+        GameManager.Instance.ChangeState<MainMenuState>();
         SceneManager.LoadScene("Menu");
     }
 }
