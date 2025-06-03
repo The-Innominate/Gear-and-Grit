@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 	public float maxYSpeed;
 
 	private float desiredMoveSpeed;
-	private float lastDisiredMoveSpeed;
+	private float lastDesiredMoveSpeed;
 
 	public float speedIncreaseMultiplier;
 	public float slopeIncreaseMultiplier;
@@ -104,6 +104,13 @@ public class PlayerMovement : MonoBehaviour
 		air
 	}
 
+	// Movement decorators
+	private SlidingDecorator slidingDecorator;
+	private WallRunDecorator wallRunDecorator;
+	private DashDecorator dashDecorator;
+	private GrapplingDecorator grapplingDecorator;
+	private ClimbingDecorator climbingDecorator;
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -112,6 +119,19 @@ public class PlayerMovement : MonoBehaviour
 		canJump = true;
 
 		startYScale = transform.localScale.y;
+
+		// Get decorator components
+		slidingDecorator = GetComponent<SlidingDecorator>();
+		wallRunDecorator = GetComponent<WallRunDecorator>();
+		dashDecorator = GetComponent<DashDecorator>();
+		grapplingDecorator = GetComponent<GrapplingDecorator>();
+		climbingDecorator = GetComponent<ClimbingDecorator>();
+		
+		// Initialize camera reference
+		if (currentCamera != null)
+		{
+			cam = currentCamera.camMode == 0 ? thirdPersonCam : firstPersonCam;
+		}
 	}
 
 	private void FixedUpdate()
@@ -125,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
 
 		MyInput();
 		SpeedControl();
-		stateHandler();
+		StateHandler();
 
 		if (onGround && !dashing && !activeGrapple)
 		{
@@ -182,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
 	bool keepMomentum;
 	private MovementState lastState;
-	private void stateHandler()
+	private void StateHandler()
 	{	
 		if(dashing)
 		{
@@ -258,7 +278,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-		if (Mathf.Abs(desiredMoveSpeed - lastDisiredMoveSpeed) > 4f && moveSpeed != 0)
+		if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
 		{
 			StopAllCoroutines();
 			StartCoroutine(SmoothlyLerpMoveSpeed());
@@ -268,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
 			moveSpeed = desiredMoveSpeed;
 		}
 
-		bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDisiredMoveSpeed;
+		bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
         if (lastState == MovementState.dashing) keepMomentum = true;
 
         if (desiredMoveSpeedHasChanged)
@@ -285,7 +305,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-		lastDisiredMoveSpeed = desiredMoveSpeed;
+		lastDesiredMoveSpeed = desiredMoveSpeed;
 		lastState = state;
 
 		if (Mathf.Abs(desiredMoveSpeed - moveSpeed) < 0.1f) keepMomentum = false;
@@ -328,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (state == MovementState.dashing) return;
 
-		if (climbingScript.exitingWall) return;
+		if (climbingDecorator != null && climbingDecorator.exitingWall) return;
 
 		moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
@@ -397,34 +417,6 @@ public class PlayerMovement : MonoBehaviour
 		exitingSlope = false;
 	}
 
-	private bool enableMovemmentOnNextTouch;
-	public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
-	{
-		activeGrapple = true;
-
-		velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
-
-		Invoke(nameof(SetVelocity), 0.1f);
-
-		Invoke(nameof(ResetRestrictions), 3f);
-	}
-
-	private Vector3 velocityToSet;
-	private void SetVelocity()
-	{
-		enableMovemmentOnNextTouch = true;
-		rb.velocity = velocityToSet;
-
-		cam.DoFov(grappleFOV);
-	}
-
-	public void ResetRestrictions()
-	{
-		activeGrapple = false;
-
-		cam.DoFov(65f);
-	}
-
 	private void OnCollisionEnter(Collision collision)
 	{
 		if(enableMovemmentOnNextTouch)
@@ -432,7 +424,10 @@ public class PlayerMovement : MonoBehaviour
 			enableMovemmentOnNextTouch = false;
 			ResetRestrictions();
 
-			GetComponent<Grappling>().StopGrapple();
+			if (grapplingDecorator != null)
+			{
+				grapplingDecorator.StopGrapple();
+			}
 		}
 	}
 
@@ -462,5 +457,33 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
 
 		return velocityXZ + velocityY;
+	}
+
+	private bool enableMovemmentOnNextTouch;
+	public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+	{
+		activeGrapple = true;
+
+		velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+
+		Invoke(nameof(SetVelocity), 0.1f);
+
+		Invoke(nameof(ResetRestrictions), 3f);
+	}
+
+	private Vector3 velocityToSet;
+	private void SetVelocity()
+	{
+		enableMovemmentOnNextTouch = true;
+		rb.velocity = velocityToSet;
+
+		cam.DoFov(grappleFOV);
+	}
+
+	public void ResetRestrictions()
+	{
+		activeGrapple = false;
+
+		cam.DoFov(65f);
 	}
 }
