@@ -1,31 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class MusicPlayer : MonoBehaviour, IOptionObserver
 {
-    //[SerializeField] AudioSource menuAudio;
     [SerializeField] AudioSource playAudio;
-    public Slider volumeSlider;
     private float musicVolume = 1.0f;
-
 
     void Start()
     {
         playAudio.Play();
-        musicVolume = PlayerPrefs.GetFloat("Volume");
+        musicVolume = PlayerPrefs.GetFloat("Volume", 1.0f);
         playAudio.volume = musicVolume;
-        volumeSlider.value = musicVolume;
+
+        var manager = FindObjectOfType<OptionsMenuManager>();
+        if (manager != null)
+        {
+            manager.Subscribe(this);
+        }
     }
+
     private void FixedUpdate()
     {
         playAudio.volume = musicVolume;
-        PlayerPrefs.SetFloat("Volume", musicVolume);
     }
-    public void VolumeChange(float volume) 
-    { 
-        musicVolume = volume;
+
+    public void OnOptionChanged(string option, object value)
+    {
+        if (option == "Volume")
+        {
+            musicVolume = (float)value;
+        }
     }
 }

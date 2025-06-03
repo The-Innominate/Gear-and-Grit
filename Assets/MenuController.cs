@@ -29,6 +29,7 @@ public class MenuController : MonoBehaviour
     }
     public void LoadGameScene() 
     {
+        GameManager.Instance.ChangeState<PlayingState>();
         SceneManager.LoadScene("BetaGameIteration1");
     }
     public void LoadGameOverScene()
