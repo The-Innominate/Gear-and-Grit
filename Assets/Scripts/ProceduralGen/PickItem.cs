@@ -1,20 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickItem : MonoBehaviour
 {
     public GameObject[] itemsToPickFrom;
+    public GameObject lastSpawned;  // expose last spawned clone
 
-    void Start()
-    {
-        Pick();
-    }
-
-    void Pick()
+    public void Pick()
     {
         int randomIndex = Random.Range(0, itemsToPickFrom.Length);
-        //quaternion.identity means no rotation
-        GameObject clone = Instantiate(itemsToPickFrom[randomIndex], transform.position, Quaternion.identity);
+        lastSpawned = Instantiate(itemsToPickFrom[randomIndex], transform.position, Quaternion.identity);
     }
 }
